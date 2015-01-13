@@ -1,0 +1,4 @@
+# find the platform threading library
+#
+# fixme: mingw requires -mthreads in PTHREAD_CFLAGS
+AX_PTHREAD
