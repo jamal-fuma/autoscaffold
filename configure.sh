@@ -30,6 +30,15 @@ ${ABS_PATH}/m4/fuma_ax_debug.m4
 ${ABS_PATH}/m4/fuma_ax_platform_types.m4
 ${ABS_PATH}/m4/fuma_ax_astyle.m4
 ${ABS_PATH}/m4/fuma_ax_ccache.m4
+${ABS_PATH}/m4/fuma_ax_check_library.m4
+${ABS_PATH}/m4/fuma_ax_flag_restoration.m4
+${ABS_PATH}/m4/fuma_ax_flag_saving.m4
+${ABS_PATH}/m4/fuma_ax_check_postgres_pq.m4
+${ABS_PATH}/m4/fuma_ax_postgres.m4
+${ABS_PATH}/m4/fuma_ax_set_postgres_path.m4
+${ABS_PATH}/m4/fuma_ax_set_postgres_version.m4
+${ABS_PATH}/m4/fuma_ax_compare_postgres_header_version.m4
+${ABS_PATH}/m4/fuma_ax_set_postgres_directory_unless_set.m4
 ${ABS_PATH}/m4/gcov.m4
 ${ABS_PATH}/m4/ax_lib_mysql.m4
 EOF
