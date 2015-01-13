@@ -1,0 +1,2 @@
+# check if we can format code nicely
+FUMA_AX_ASTYLE([2.03])
