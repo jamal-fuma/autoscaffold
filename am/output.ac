@@ -1,0 +1,13 @@
+# generate the output
+
+AC_CONFIG_FILES([Makefile
+                 sources/Makefile
+                 sources/include/Makefile
+                 sources/lib/Makefile
+                 sources/src/Makefile
+                 tests/Makefile
+                 tests/include/Makefile
+                 tests/lib/Makefile
+                 tests/src/Makefile])
+
+AC_OUTPUT

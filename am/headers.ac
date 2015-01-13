@@ -1,0 +1,5 @@
+# Checks for header files.
+AC_HEADER_STDBOOL
+AC_HEADER_TIME
+AC_HEADER_STDC
+AC_CHECK_HEADERS([limits.h execinfo.h ucontext.h])

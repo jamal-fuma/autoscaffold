@@ -1,0 +1,24 @@
+# sources/lib/Library/Makefile.am
+
+SUBDIRS = \
+ .
+
+include $(top_srcdir)/build-aux/source_common.mk
+
+AM_LDFLAGS = $(LINKER_FLAGS)
+AM_CPPFLAGS = $(COMPILE_FLAGS)
+
+noinst_LTLIBRARIES = \
+ libLibrary.la
+
+#noinst_HEADERS = \
+# libLibrary_private.hpp
+
+#libLibrary_la_SOURCES = \
+# libLibrary_private.cpp
+
+libLibrary_la_LIBADD = \
+ $(LINKER_LIBS)
+
+MAINTAINERCLEANFILES = \
+ $(top_srcdir)/sources/lib/Library/Makefile.in

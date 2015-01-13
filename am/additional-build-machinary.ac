@@ -1,0 +1,11 @@
+# Process this file with autoconf to produce a configure script.
+AC_PREREQ([2.68])
+AC_INIT([vendor-project-name], [0.0.1], [bugfixes@support-email.com])
+
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([m4])
+
+# location of additional build machinary
+AC_CONFIG_HEADERS([config.h])
+AC_SUBST([ACLOCAL_AMFLAGS], ["-I $ac_macro_dir \${ACLOCAL_FLAGS} --install"])
+AC_CONFIG_SRCDIR([Makefile.am])

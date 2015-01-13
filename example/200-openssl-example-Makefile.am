@@ -1,0 +1,26 @@
+# sources/lib/WrapperSSL/Makefile.am
+
+SUBDIRS = \
+ .
+
+include $(top_srcdir)/build-aux/source_common.mk
+
+AM_LDFLAGS = $(LINKER_FLAGS) $(OPENSSL_LDFLAGS)
+AM_CPPFLAGS = $(COMPILE_FLAGS) $(OPENSSL_INCLUDES)
+
+noinst_LTLIBRARIES = \
+ libWrapperSSL.la
+
+#noinst_HEADERS = \
+# libWrapperSSL_private.hpp
+
+#libWrapperSSL_la_SOURCES = \
+# libWrapperSSL_private.cpp
+
+
+libWrapperSSL_la_LIBADD = \
+ $(OPENSSL_LIBS) \
+ $(LINKER_LIBS)
+
+MAINTAINERCLEANFILES = \
+ $(top_srcdir)/sources/lib/WrapperSSL/Makefile.in
