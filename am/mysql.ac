@@ -1,0 +1,2 @@
+# find the platform mysql client library
+AX_LIB_MYSQL([5.6.0])
