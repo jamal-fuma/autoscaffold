@@ -1,0 +1,3 @@
+# allow for silent builds in older version of automake 12.04 lts cough
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES])
+

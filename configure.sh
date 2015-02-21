@@ -1,0 +1,131 @@
+#!/bin/sh
+# (c) FumaSoftware 2012
+#
+# Generate a configure.ac  with boost, unit tests and c++11 support
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+#
+output_dir=${1:-'missing'}
+
+APP_NAME="${0}"
+APP_DIR=`dirname ${APP_NAME}`
+ABS_PATH="$( cd "$APP_DIR" && pwd )"
+
+m4_files=$(cat <<EOF
+${ABS_PATH}/m4/ax_boost_base.m4
+${ABS_PATH}/m4/ax_boost_filesystem.m4
+${ABS_PATH}/m4/ax_boost_iostreams.m4
+${ABS_PATH}/m4/ax_boost_program_options.m4
+${ABS_PATH}/m4/ax_boost_regex.m4
+${ABS_PATH}/m4/ax_boost_system.m4
+${ABS_PATH}/m4/ax_boost_unit_test_framework.m4
+${ABS_PATH}/m4/ax_cxx_compile_stdcxx_11.m4
+${ABS_PATH}/m4/ax_pthread.m4
+${ABS_PATH}/m4/fuma_ax_cannonical_host.m4
+${ABS_PATH}/m4/fuma_ax_cppflags_if_enabled.m4
+${ABS_PATH}/m4/fuma_ax_debug.m4
+${ABS_PATH}/m4/fuma_ax_platform_types.m4
+${ABS_PATH}/m4/fuma_ax_astyle.m4
+${ABS_PATH}/m4/fuma_ax_ccache.m4
+${ABS_PATH}/m4/gcov.m4
+${ABS_PATH}/m4/ax_lib_mysql.m4
+EOF
+)
+
+build_aux_files=$(cat <<EOF
+${ABS_PATH}/am/astyle.mk
+${ABS_PATH}/am/changelog.mk
+${ABS_PATH}/am/source_common.mk
+${ABS_PATH}/am/test_common.mk
+${ABS_PATH}/am/gcov.mk
+EOF
+)
+
+script_files=$(cat <<EOF
+${ABS_PATH}/scripts/centos.sh
+${ABS_PATH}/scripts/configure.sh
+${ABS_PATH}/scripts/ctags.sh
+${ABS_PATH}/scripts/reallyclean.sh
+EOF
+)
+
+ConfigureFragments=$(cat <<EOF
+${ABS_PATH}/am/automake.ac
+${ABS_PATH}/am/silent-rules.ac
+${ABS_PATH}/am/disable-detection-of-compilers-unused-by-me.ac
+${ABS_PATH}/am/cpp11.ac
+${ABS_PATH}/am/programs.ac
+${ABS_PATH}/am/astyle.ac
+${ABS_PATH}/am/ccache.ac
+${ABS_PATH}/am/coverage.ac
+${ABS_PATH}/am/fuma.ac
+${ABS_PATH}/am/headers.ac
+${ABS_PATH}/am/pthread.ac
+${ABS_PATH}/am/boost.ac
+${ABS_PATH}/am/output.ac
+EOF
+)
+
+# generate configure script
+ConfigureFragments=$(cat <<EOF
+${ABS_PATH}/am/additional-build-machinary.ac
+${ABS_PATH}/am/automake.ac
+${ABS_PATH}/am/silent-rules.ac
+${ABS_PATH}/am/disable-detection-of-compilers-unused-by-me.ac
+${ABS_PATH}/am/cpp11.ac
+${ABS_PATH}/am/programs.ac
+${ABS_PATH}/am/astyle.ac
+${ABS_PATH}/am/ccache.ac
+${ABS_PATH}/am/coverage.ac
+${ABS_PATH}/am/fuma.ac
+${ABS_PATH}/am/headers.ac
+${ABS_PATH}/am/pthread.ac
+${ABS_PATH}/am/boost.ac
+${ABS_PATH}/am/output.ac
+EOF
+)
+
+if [ "missing" = ${output_dir} ];
+then
+	printf "%s: Error: %s\n" "$APP_NAME" "You need to tell me which directory to poplulate with all my files";
+	exit `false`;
+fi
+
+[ ! -d ${output_dir} ] || mkdir ${output_dir}
+
+# copy makefiles
+(cd ${ABS_PATH}/mk; tar cf - . ) | ( cd ${output_dir}; tar xf - );
+
+# copy test helper
+mkdir ${output_dir}/tests/fixtures
+cp ${ABS_PATH}/stubs/TestHelper.hpp ${output_dir}/tests/include/TestHelper.hpp
+cp ${ABS_PATH}/stubs/test_build.cpp ${output_dir}/tests/src/
+cp ${ABS_PATH}/stubs/test_build.cpp ${output_dir}/tests/lib
+cp ${ABS_PATH}/stubs/fixture.txt ${output_dir}/tests/fixtures/
+
+# assemble configure.ac
+cat $ConfigureFragments > ${output_dir}/configure.ac
+
+# copy over supporting build fragments
+mkdir -p ${output_dir}/build-aux;
+for f in $build_aux_files; do
+	cp $f ${output_dir}/build-aux/`basename $f`;
+done
+
+# copy over supporting m4 fragments
+mkdir -p ${output_dir}/m4;
+for f in $m4_files; do
+	cp $f ${output_dir}/m4/`basename $f`;
+done
+
+# copy over supporting scripts
+mkdir -p ${output_dir}/scripts;
+for f in $script_files; do
+	cp $f ${output_dir}/scripts/`basename $f`;
+done
+
+printf "%s\n" "autoreconf -fvi" > ${output_dir}/autogen.sh
+chmod +x ${output_dir}/autogen.sh

@@ -1,0 +1,21 @@
+# sources/src/app/Makefile.am
+
+SUBDIRS = \
+ .
+
+include $(top_srcdir)/build-aux/source_common.mk
+
+AM_LDFLAGS = $(LINKER_FLAGS)
+AM_CPPFLAGS = $(COMPILE_FLAGS)
+
+bin_PROGRAMS = app
+
+app_SOURCES = \
+ Main.cpp
+
+app_LDADD = \
+$(top_builddir)/sources/lib/libLibrary.la \
+ $(LINKER_LIBS)
+
+MAINTAINERCLEANFILES = \
+ $(top_srcdir)/sources/src/app/Makefile.in

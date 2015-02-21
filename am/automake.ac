@@ -1,0 +1,5 @@
+# setup automake
+AM_INIT_AUTOMAKE([1.10 no-define foreign tar-pax subdir-objects])
+
+# enable maintainer mode
+AM_MAINTAINER_MODE

@@ -1,0 +1,8 @@
+# workout what platform we are building for
+FUMA_AX_CANONICAL_HOST
+
+# enable debug builds
+FUMA_AX_DEBUG 
+
+# check for platform minimal requirments
+FUMA_AX_PLATFORM_TYPES

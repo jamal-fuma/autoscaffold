@@ -1,0 +1,25 @@
+# sources/lib/WebtookitHttp/Makefile.am
+
+SUBDIRS = \
+ .
+
+include $(top_srcdir)/build-aux/source_common.mk
+
+AM_LDFLAGS = $(LINKER_FLAGS) $(WEBTOOLKIT_LDFLAGS)
+AM_CPPFLAGS = $(COMPILE_FLAGS) $(WEBTOOLKIT_CPPFLAGS)
+
+noinst_LTLIBRARIES = \
+ libWebtookitHttp.la
+
+#noinst_HEADERS = \
+# libWebtookitHttp_private.hpp
+
+#libWebtookitHttp_la_SOURCES = \
+# libWebtookitHttp_private.cpp
+
+libWebtookitHttp_la_LIBADD = \
+ $(WEBTOOLKIT_HTTP_LIBS) \
+ $(LINKER_LIBS)
+
+MAINTAINERCLEANFILES = \
+ $(top_srcdir)/sources/lib/WebtookitHttp/Makefile.in

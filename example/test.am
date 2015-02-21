@@ -1,0 +1,21 @@
+# tests/src/app/Makefile.am
+
+SUBDIRS = \
+ .
+
+include $(top_srcdir)/build-aux/test_common.mk
+
+AM_LDFLAGS = $(LINKER_FLAGS)
+AM_CPPFLAGS = $(COMPILE_FLAGS) -DBOOST_TEST_MODULE="app"
+
+check_PROGRAMS = test_app
+
+test_app_SOURCES = \
+ Main.cpp
+
+test_app_LDADD = \
+ $(top_builddir)/sources/lib/libLibrary.la \
+ $(LINKER_LIBS)
+
+MAINTAINERCLEANFILES = \
+ $(top_srcdir)/tests/src/app/Makefile.in

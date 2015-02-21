@@ -1,0 +1,2 @@
+# check if we can do code coverage
+AC_TDD_GCOV
