@@ -39,6 +39,16 @@ ${ABS_PATH}/m4/fuma_ax_set_postgres_path.m4
 ${ABS_PATH}/m4/fuma_ax_set_postgres_version.m4
 ${ABS_PATH}/m4/fuma_ax_compare_postgres_header_version.m4
 ${ABS_PATH}/m4/fuma_ax_set_postgres_directory_unless_set.m4
+${ABS_PATH}/m4/fuma_ax_webtoolkit.m4
+${ABS_PATH}/m4/fuma_ax_check_webtoolkit_dbo_mysql.m4
+${ABS_PATH}/m4/fuma_ax_check_webtoolkit_dbo_postgres_library.m4
+${ABS_PATH}/m4/fuma_ax_check_webtoolkit_dbo_sqlite3_library.m4
+${ABS_PATH}/m4/fuma_ax_check_webtoolkit_http_library.m4
+${ABS_PATH}/m4/fuma_ax_check_webtoolkit_test_library.m4
+${ABS_PATH}/m4/fuma_ax_set_webtoolkit_directory_unless_set.m4
+${ABS_PATH}/m4/fuma_ax_set_webtoolkit_path.m4
+${ABS_PATH}/m4/fuma_ax_set_webtoolkit_version.m4
+${ABS_PATH}/m4/fuma_ax_compare_webtoolkit_header_version.m4
 ${ABS_PATH}/m4/gcov.m4
 ${ABS_PATH}/m4/ax_lib_mysql.m4
 EOF
@@ -61,23 +71,6 @@ ${ABS_PATH}/scripts/reallyclean.sh
 EOF
 )
 
-ConfigureFragments=$(cat <<EOF
-${ABS_PATH}/am/automake.ac
-${ABS_PATH}/am/silent-rules.ac
-${ABS_PATH}/am/disable-detection-of-compilers-unused-by-me.ac
-${ABS_PATH}/am/cpp11.ac
-${ABS_PATH}/am/programs.ac
-${ABS_PATH}/am/astyle.ac
-${ABS_PATH}/am/ccache.ac
-${ABS_PATH}/am/coverage.ac
-${ABS_PATH}/am/fuma.ac
-${ABS_PATH}/am/headers.ac
-${ABS_PATH}/am/pthread.ac
-${ABS_PATH}/am/boost.ac
-${ABS_PATH}/am/output.ac
-EOF
-)
-
 # generate configure script
 ConfigureFragments=$(cat <<EOF
 ${ABS_PATH}/am/additional-build-machinary.ac
@@ -94,6 +87,7 @@ ${ABS_PATH}/am/headers.ac
 ${ABS_PATH}/am/pthread.ac
 ${ABS_PATH}/am/boost.ac
 ${ABS_PATH}/am/postgres.ac
+${ABS_PATH}/am/webtoolkit.ac
 ${ABS_PATH}/am/output.ac
 EOF
 )
