@@ -31,7 +31,7 @@ AC_DEFUN([FUMA_AX_COMPARE_POSTGRES_HEADER_VERSION],[dnl
     FUMA_AX_POP_FLAGS([SAVED])
     AS_IF([test "x${$1}" = "xyes"], [dnl
             AC_SUBST([POSTGRES_CPPFLAGS])
-            AC_DEFINE([HAVE_POSTGRES],[1],[define if the postgres library is available])
+            AC_DEFINE([HAVE_LIBPQ_FE_H],[1],[define if the PostgreSQL libpq-fe.h header is available])
             ])
 
     AC_MSG_RESULT([${$2}])

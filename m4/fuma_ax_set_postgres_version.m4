@@ -26,6 +26,8 @@ AC_DEFUN([FUMA_AX_SET_POSTGRES_VERSION],[dnl
 # calculate a cannonical version number
   fuma_ax_$2_version_number=`expr $fuma_ax_$2_version_major \* 10000 \+  $fuma_ax_$2_version_minor \* 1000 \+ $fuma_ax_$2_version_micro`;
 
+  fuma_ax_$2_version_str="${fuma_ax_$2_version_major}.${fuma_ax_$2_version_minor}.${fuma_ax_$2_version_micro}";
+
 #---------------------------------------------------------------
 # FUMA_AX_SET_POSTGRES_VERSION end
 #---------------------------------------------------------------

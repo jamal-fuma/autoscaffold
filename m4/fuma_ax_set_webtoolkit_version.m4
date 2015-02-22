@@ -25,6 +25,8 @@ AC_DEFUN([FUMA_AX_SET_WEBTOOLKIT_VERSION],[dnl
 # calculate a cannonical version number
   fuma_ax_$2_version_number=`expr $fuma_ax_$2_version_major \* 16777216 \+  $fuma_ax_$2_version_minor \* 65536 \+ $fuma_ax_$2_version_micro \* 256`;
 
+  fuma_ax_$2_version_str="${fuma_ax_$2_version_major}.${fuma_ax_$2_version_minor}.${fuma_ax_$2_version_micro}";
+
 #---------------------------------------------------------------
 # FUMA_AX_SET_WEBTOOLKIT_VERSION end
 #---------------------------------------------------------------
