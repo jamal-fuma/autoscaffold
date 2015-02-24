@@ -93,6 +93,7 @@ ${ABS_PATH}/am/fuma.ac
 ${ABS_PATH}/am/headers.ac
 ${ABS_PATH}/am/pthread.ac
 ${ABS_PATH}/am/boost.ac
+${ABS_PATH}/am/postgres.ac
 ${ABS_PATH}/am/output.ac
 EOF
 )

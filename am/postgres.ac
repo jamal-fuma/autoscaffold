@@ -1,0 +1,2 @@
+# see about postgres
+FUMA_AX_POSTGRES([9.4.0], [],[AC_MSG_ERROR([PostgreSQL was not found in your system])])
