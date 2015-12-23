@@ -1,2 +1,7 @@
-# see about postgres
-FUMA_AX_POSTGRES([9.4.0], [],[AC_MSG_ERROR([PostgreSQL was not found in your system])])
+# see if user wants postgres
+AC_ARG_ENABLE([postgres],
+    AS_HELP_STRING([--enable-psql],[use psql]),[postgres=true],[postgres=false])
+
+AS_IF([test "x${postgres}" = "xtrue"],  [
+    FUMA_AX_POSTGRES([9.4.0], [],[AC_MSG_ERROR([PostgreSQL was not found in your system])])
+])
