@@ -131,6 +131,10 @@ for f in $script_files; do
 	cp $f ${output_dir}/scripts/`basename $f`;
 done
 
+# add the project metadata directory
+mkdir -p ${output_dir}/project;
+(cd ${ABS_PATH}/project; tar cf - . ) | ( cd ${output_dir}/project; tar xf - );
+
 # add autogen.sh
 cp ${ABS_PATH}/stubs/autogen.sh ${output_dir}/autogen.sh
 chmod +x ${output_dir}/autogen.sh
