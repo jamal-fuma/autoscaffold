@@ -131,5 +131,6 @@ for f in $script_files; do
 	cp $f ${output_dir}/scripts/`basename $f`;
 done
 
-printf "%s\n" "autoreconf -fvi" > ${output_dir}/autogen.sh
+# add autogen.sh
+cp ${ABS_PATH}/stubs/autogen.sh ${output_dir}/autogen.sh
 chmod +x ${output_dir}/autogen.sh
