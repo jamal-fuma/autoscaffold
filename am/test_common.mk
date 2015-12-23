@@ -11,7 +11,9 @@ TEST_DEFINES	= $(SOURCE_DEFINES) \
 				  -DFIXTURES_DIR="\"${abs_top_srcdir}/tests/fixtures\"" \
 				  -DBOOST_TEST_DYN_LINK="1"
 
-LINKER_FLAGS	= $(BOOST_LDFLAGS) \
+# where there is a choice, we prefer to statically link test cases
+LINKER_FLAGS	= -static \
+				  $(BOOST_LDFLAGS) \
 				  $(PTHREAD_LIBS) \
 				  $(POSTGRES_LDFLAGS) \
 				  $(WEBTOOLKIT_LDFLAGS) \
