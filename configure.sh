@@ -135,6 +135,9 @@ done
 mkdir -p ${output_dir}/project;
 (cd ${ABS_PATH}/project; tar cf - . ) | ( cd ${output_dir}/project; tar xf - );
 
+# add a git ignore
+cp ${ABS_PATH}/stubs/git-ignore-file.txt ${output_dir}/.gitignore
+
 # add autogen.sh
 cp ${ABS_PATH}/stubs/autogen.sh ${output_dir}/autogen.sh
 chmod +x ${output_dir}/autogen.sh
