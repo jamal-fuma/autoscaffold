@@ -12,7 +12,6 @@ LINKER_FLAGS	= \
 		  $(POSTGRES_LDFLAGS) \
 		  $(WEBTOOLKIT_LDFLAGS) \
 		  $(BOOST_LDFLAGS) \
-		  $(PTHREAD_LIBS) \
 		  $(COVERAGE_LDFLAGS) \
 		  -rdynamic
 
@@ -49,4 +48,5 @@ LINKER_LIBS	= \
 				  $(BOOST_FILESYSTEM_LIB) \
 				  $(WEBTOOLKIT_HTTP_LIBS) \
 				  $(WEBTOOLKIT_DBO_LIBS)  \
-				  $(POSTGRES_PQ_LIBS)
+				  $(POSTGRES_PQ_LIBS)     \
+				  $(PTHREAD_LIBS)
