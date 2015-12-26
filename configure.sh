@@ -59,6 +59,7 @@ ${ABS_PATH}/am/astyle.mk
 ${ABS_PATH}/am/changelog.mk
 ${ABS_PATH}/am/source_common.mk
 ${ABS_PATH}/am/test_common.mk
+${ABS_PATH}/am/data_common.mk
 ${ABS_PATH}/am/gcov.mk
 EOF
 )

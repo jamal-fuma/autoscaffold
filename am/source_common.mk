@@ -1,9 +1,11 @@
-# hang the package configuration directories of the $(sysconfdir) environment
+include $(top_srcdir)/build-aux/data_common.mk
 
 INCLUDE_DIRS	= -I$(top_builddir) \
 				  -I$(top_srcdir)/sources/include
 
 SOURCE_DEFINES  = -DPACKAGE_VERSION="\"${PACKAGE_VERSION}\"" \
+				  -DFUMA_CONFIG_DIR="\"${pkg_sysconf_dir}\"" \
+				  -DFUMA_DATA_DIR="\"${pkg_data_dir}\"" \
 				  -D__STDC_LIMIT_MACROS=1 \
 				  -DFUMA_BUILD_LABEL="\"${FUMA_BUILD_LABEL}\"" \
 				  -DBOOST_SIGNALS_NO_DEPRECATION_WARNING=1
