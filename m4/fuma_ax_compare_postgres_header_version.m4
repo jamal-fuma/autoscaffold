@@ -29,7 +29,7 @@ AC_DEFUN([FUMA_AX_COMPARE_POSTGRES_HEADER_VERSION],[dnl
     AC_LANG_POP([C++])
 
     FUMA_AX_POP_FLAGS([SAVED])
-    AS_IF([test "x${$1}" = "xyes"], [dnl
+    AS_IF([test "x${$2}" = "xyes"], [dnl
             AC_SUBST([POSTGRES_CPPFLAGS])
             AC_DEFINE([HAVE_LIBPQ_FE_H],[1],[define if the PostgreSQL libpq-fe.h header is available])
             ])
