@@ -15,6 +15,11 @@ dnl platform detection
 #
 #   Test for the PostgreSQL C++ libraries of a particular version (or newer)
 #
+#   adds the following arguments to configure
+#       --with-postgres
+#       --with-postgres-include-dir
+#       --with-postgres-library-dir
+#
 #   This macro calls:
 #
 #     AC_SUBST(POSTGRES_CPPFLAGS) / AC_SUBST(POSTGRES_LDFLAGS)
