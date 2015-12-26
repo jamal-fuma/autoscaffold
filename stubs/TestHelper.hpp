@@ -71,30 +71,94 @@ namespace Fuma
                 }
 
                 // teardown
-                ~Fixture()
-		{
-		    // cleanup per test fixture data
-		}
+                virtual ~Fixture()
+                {
+                    // cleanup per test fixture data
+                }
 
-		// test helpers
-		std::string fixture_load(const std::string & fname)
-		{
-			// glue paths together
-			boost::filesystem::path full_path(FIXTURES_DIR);
-			full_path /= fname.c_str(); 
+                // accessors
+                std::string fixture_get_abs_filename() const
+                {
+                    return boost::filesystem::canonical(m_abs_filename).string();
+                }
 
-			// get a suitable string
-			std::string abs_fname = 
-				boost::filesystem::canonical(full_path).string();
+                std::string fixture_get_abs_dirname() const
+                {
+                    return boost::filesystem::canonical(m_fixtures_dir).string();
+                }
 
-			uintmax_t size = boost::filesystem::file_size(full_path);
+                std::string fixture_get_rel_filename() const
+                {
+                    return m_rel_filename;
+                }
 
-			// read the file into the vector
-			std::vector<char>(size).swap(m_data);
-			std::ifstream input(abs_fname.c_str());
-			input.read(&m_data[0], size);
+                size_t fixture_get_size() const
+                {
+                    return m_data.size();
+                }
 
-			return abs_fname;
+                size_t fixture_get_filesystem_size() const
+                {
+                    // relies on stat(2) and the st_size member of struct stat
+                    return boost::filesystem::file_size(m_abs_filename);
+                }
+
+                // mutators
+                std::string fixture_to_string() const
+                {
+                    return std::string(fixture_begin(),fixture_end());
+                }
+
+                // path is relative to ${top_srcdir}/tests/fixtures
+                void fixture_set_rel_filename(const std::string & relative_fixture_filename)
+                {
+                    m_rel_filename = relative_fixture_filename;
+
+                    // reset to base path
+                    m_abs_filename = m_fixtures_dir;
+
+                    // glue paths together
+                    m_abs_filename /= m_rel_filename.c_str();
+                }
+
+                void fixture_set_abs_dirname(const std::string & dir)
+                {
+                    m_fixtures_dir = boost::filesystem::path(dir);
+                }
+
+                void fixture_refresh_from_disk()
+                {
+                    // read the file into the vector
+                    size_t size = fixture_get_filesystem_size();
+
+                    // swap with a temporary to release the memory
+                    std::vector<char>(size).swap(m_data);
+
+                    // stream it in so we get the normal behaviour
+                    std::ifstream input(fixture_get_abs_filename().c_str());
+                    input.read(&m_data[0], size);
+                }
+
+                // const iterator access
+                std::vector<char>::const_iterator fixture_begin() const
+                {
+                    return m_data.begin();
+                }
+
+                std::vector<char>::const_iterator fixture_end() const
+                {
+                    return m_data.end();
+                }
+
+                // non const iterator access
+                std::vector<char>::iterator fixture_begin()
+                {
+                    return m_data.begin();
+                }
+
+                std::vector<char>::iterator fixture_end()
+                {
+                    return m_data.end();
                 }
 
                 // public data the testcases can use
