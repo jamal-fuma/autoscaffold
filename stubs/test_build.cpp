@@ -7,7 +7,7 @@ struct FixtureData
 
 BOOST_FIXTURE_TEST_SUITE(BasicSuite, FixtureData)
 
-BOOST_AUTO_TEST_CASE(should_have_runid)
+BOOST_AUTO_TEST_CASE(should_match_hello_fixture)
 {
     std::string expected = "Hello World\n";
     std::string actual = fixture_load("fixture.txt");
