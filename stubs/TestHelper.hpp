@@ -40,6 +40,10 @@
 #ifndef FUMA_TEST_HELPER_HPP
 #define FUMA_TEST_HELPER_HPP
 
+#if defined(HAVE_CONFIG_H)
+#include "config.h"
+#endif
+
 #include <boost/test/unit_test.hpp>
 #include <boost/test/mock_object.hpp>
 #include <assert.h>
@@ -51,6 +55,7 @@
 #include <fstream>
 
 #include <vector>
+#include <stdlib.h>
 namespace Fuma
 {
     namespace Test
@@ -60,6 +65,7 @@ namespace Fuma
             public:
                 // setup
                 Fixture()
+                    : m_fixtures_dir(boost::filesystem::path(FIXTURES_DIR))
                 {
                     // setup per test fixture data
                 }
@@ -92,6 +98,9 @@ namespace Fuma
                 }
 
                 // public data the testcases can use
+                boost::filesystem::path m_fixtures_dir;
+                boost::filesystem::path m_abs_filename;
+                std::string m_rel_filename;
                 std::vector<char> m_data;
         };
 
