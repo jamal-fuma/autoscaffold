@@ -22,7 +22,7 @@ AC_DEFUN([FUMA_AX_CCACHE],[dnl
                 or disable it (ARG=no)
                 @<:@ARG=yes@:>@ ])],
             [fuma_ax_with_ccache=${withval}],
-            [fuma_ax_with_ccache="yes"])
+            [fuma_ax_with_ccache="no"])
 
         AS_IF([test "x${fuma_ax_with_ccache}" = "xyes"],[dnl
             AC_MSG_CHECKING(["for ccache"])
