@@ -14,17 +14,19 @@ AC_DEFUN([FUMA_AX_SET_POSTGRES_VERSION],[dnl
 #---------------------------------------------------------------
 # extract most significant digit as major version
    fuma_ax_$2_input_version_number=$1;
-   fuma_ax_$2_version_major=`expr $1 : '\([[0-9]]*\)'`;
+   fuma_ax_$2_version_major=`expr "$1" : '\([[0-9]]*\)'`;
+   AS_IF([test "x$fuma_ax_$2_version_major" = "x"], [fuma_ax_$2_version_major="0";])
 
 # extract next most significant digit as minor version
-  fuma_ax_$2_version_minor=`expr $1 : '[[0-9]]*\.\([[0-9]]*\)'`;
+  fuma_ax_$2_version_minor=`expr "$1" : '[[0-9]]*\.\([[0-9]]*\)'`;
+  AS_IF([test "x$fuma_ax_$2_version_minor" = "x"], [fuma_ax_$2_version_minor="0";])
 
 # extract least significant digit as micro version
-  fuma_ax_$2_version_micro=`expr $1 : '[[0-9]]*\.[[0-9]]*\.\([[0-9]]*\)'`
+  fuma_ax_$2_version_micro=`expr "$1" : '[[0-9]]*\.[[0-9]]*\.\([[0-9]]*\)'`
   AS_IF([test "x$fuma_ax_$2_version_micro" = "x"], [fuma_ax_$2_version_micro="0";])
 
 # calculate a cannonical version number
-  fuma_ax_$2_version_number=`expr $fuma_ax_$2_version_major \* 10000 \+  $fuma_ax_$2_version_minor \* 1000 \+ $fuma_ax_$2_version_micro`;
+  fuma_ax_$2_version_number=`expr "$fuma_ax_$2_version_major \* 10000 \+  $fuma_ax_$2_version_minor \* 1000 \+ $fuma_ax_$2_version_micro"`;
 
   fuma_ax_$2_version_str="${fuma_ax_$2_version_major}.${fuma_ax_$2_version_minor}.${fuma_ax_$2_version_micro}";
 

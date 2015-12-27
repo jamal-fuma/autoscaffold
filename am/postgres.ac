@@ -1,2 +1,2 @@
-# see about postgres
+# see if user wants postgreSQL
 FUMA_AX_POSTGRES([9.4.0], [],[AC_MSG_ERROR([PostgreSQL was not found in your system])])
