@@ -1,8 +1,13 @@
+include $(top_srcdir)/build-aux/data_common.mk
+
 INCLUDE_DIRS	= -I$(top_builddir) \
 				  -I$(top_srcdir)/sources/include \
+				  -I$(top_srcdir)/sources/include/3rd_party \
 				  -I$(top_srcdir)/tests/include
 
 SOURCE_DEFINES  = -DPACKAGE_VERSION="\"${PACKAGE_VERSION}\"" \
+				  -DFUMA_CONFIG_DIR="\"${pkg_sysconf_dir}\"" \
+				  -DFUMA_DATA_DIR="\"${pkg_data_dir}\"" \
 				  -D__STDC_LIMIT_MACROS=1 \
 				  -DFUMA_BUILD_LABEL="\"${FUMA_BUILD_LABEL}\"" \
 				  -DBOOST_SIGNALS_NO_DEPRECATION_WARNING=1
@@ -11,9 +16,11 @@ TEST_DEFINES	= $(SOURCE_DEFINES) \
 				  -DFIXTURES_DIR="\"${abs_top_srcdir}/tests/fixtures\"" \
 				  -DBOOST_TEST_DYN_LINK="1"
 
-LINKER_FLAGS	= $(BOOST_LDFLAGS) \
+# where there is a choice, we prefer to statically link test cases
+LINKER_FLAGS	= -static \
+				  $(BOOST_LDFLAGS) \
 				  $(PTHREAD_LIBS) \
-				  $(POSTGRES_LDFLAGS)
+				  $(POSTGRES_LDFLAGS) \
 				  $(WEBTOOLKIT_LDFLAGS) \
 				  $(COVERAGE_LDFLAGS) \
 				  -rdynamic
@@ -50,4 +57,5 @@ LINKER_LIBS		= $(BOOST_UNIT_TEST_FRAMEWORK_LIB) \
 				  $(BOOST_FILESYSTEM_LIB) \
 				  $(WEBTOOLKIT_HTTP_LIBS) \
 				  $(WEBTOOLKIT_DBO_LIBS) \
-				  $(POSTGRES_PQ_LIBS)
+				  $(POSTGRES_PQ_LIBS) \
+				  $(PTHREAD_LIBS)
