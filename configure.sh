@@ -59,6 +59,7 @@ ${ABS_PATH}/am/astyle.mk
 ${ABS_PATH}/am/changelog.mk
 ${ABS_PATH}/am/source_common.mk
 ${ABS_PATH}/am/test_common.mk
+${ABS_PATH}/am/data_common.mk
 ${ABS_PATH}/am/gcov.mk
 EOF
 )
@@ -131,5 +132,13 @@ for f in $script_files; do
 	cp $f ${output_dir}/scripts/`basename $f`;
 done
 
-printf "%s\n" "autoreconf -fvi" > ${output_dir}/autogen.sh
+# add the project metadata directory
+mkdir -p ${output_dir}/project;
+(cd ${ABS_PATH}/project; tar cf - . ) | ( cd ${output_dir}/project; tar xf - );
+
+# add a git ignore
+cp ${ABS_PATH}/stubs/git-ignore-file.txt ${output_dir}/.gitignore
+
+# add autogen.sh
+cp ${ABS_PATH}/stubs/autogen.sh ${output_dir}/autogen.sh
 chmod +x ${output_dir}/autogen.sh
