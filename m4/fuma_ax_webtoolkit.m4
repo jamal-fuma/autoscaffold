@@ -103,17 +103,16 @@ AC_ARG_WITH([mysql],
             @<:@ARG=yes@:>@ ])],
         [fuma_ax_with_mysql=${withval}], [fuma_ax_with_mysql="no";])
 
-AC_ARG_WITH([postgres],
-        [AS_HELP_STRING([--with-postgres@<:@=ARG@:>@],
-            [use Wt PostgreSQL Database backend,
-            @<:@ARG=no@:>@ ])],
-        [fuma_ax_with_postgres=${withval}], [fuma_ax_with_postgres="no";])
-
 AC_ARG_WITH([sqlite3],
         [AS_HELP_STRING([--with-sqlite3@<:@=ARG@:>@],
             [use Wt SQLITE3 Database backend,
             @<:@ARG=no@:>@ ])],
         [fuma_ax_with_sqlite3=${withval}], [fuma_ax_with_sqlite3="yes";])
+
+    AS_IF([test "x$fuma_ax_with_postgres" = "xyes"], [dnl
+        fuma_ax_with_mysql="no";
+        fuma_ax_with_sqlite3="no";
+        fuma_ax_dbo_backend="postgres";])
 
     AS_IF([test "x$fuma_ax_with_mysql" = "xyes"], [dnl
         fuma_ax_with_sqlite3="no";
@@ -125,10 +124,6 @@ AC_ARG_WITH([sqlite3],
         fuma_ax_with_postgres="no";
         fuma_ax_dbo_backend="sqlite3";])
 
-    AS_IF([test "x$fuma_ax_with_postgres" = "xyes"], [dnl
-        fuma_ax_with_mysql="no";
-        fuma_ax_with_sqlite3="no";
-        fuma_ax_dbo_backend="postgres";])
 
 # try paths until we find a match
     dnl setup the search paths

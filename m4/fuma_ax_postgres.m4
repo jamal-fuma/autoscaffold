@@ -154,6 +154,10 @@ AC_DEFUN_ONCE([FUMA_AX_POSTGRES],[dnl
     AS_IF([test "x${with_postgres}" != "xno"],
           [AC_MSG_CHECKING([if PostgreSQL is available using the provided options, try --with-postgres=version or --with-postgres=path if this fails when you expect it to work])
             AC_MSG_RESULT([${fuma_ax_postgres_found}])
+
+            # this will be used in witty detection
+            fuma_ax_with_postgres="${fuma_ax_postgres_found}";
+
             AS_IF([test "x$fuma_ax_postgres_found" = "xno"],
                     [ifelse([$3],,:,[$3])],
                     [ifelse([$2],,:,[$2])])])
