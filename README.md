@@ -17,7 +17,7 @@ n example test is provided to show how to use the provided support for unit test
 Files in the generated project 
 ============
 
-../output/
+```../output/
 ├── Makefile.am 	 - the top level makefile - the SUBDIRS line must be updated when extra directories are added to the directory
 ├── autogen.sh  	 - regenerates all generated files from a pristine checkout
 ├── configure.ac 	 - the top level project configuration, once a project is generated - the project name and support email should be changed here
@@ -63,14 +63,18 @@ Files in the generated project
     └── src
     │   └── Makefile.am	  - lists the subdirectories to build tests for executables in a source tree
     │   └── test_build.cpp - a test which exercises a executable in the source tree
-
+```
 How do I use it?
 ============
+```
 1) clone the repo  		 > git checkout github.com/jamal-fuma/autoscaffold ./autoscaffold
-2) generate an output directory  > cd ./autoscaffold; ./configure.sh
-3) see the tests pass 		 > cd output; ./autogen.sh; ./configure; make; make distcheck;
+2) make a new project directory  > mkdir my_new_project
+3) generate the build system 	 > ./autoscaffold/configure.sh my_new_project
+4) run the smoke tests 	 	 > cd my_new_project
+5) Do the autotools three step   > ./autogen.sh; ./configure; make; make distcheck;
+```
 
-Now make sure to copy the output directory somewhere as running ./configure.sh again will overwrite the output directory.
+Now Started adding code and happy hacking ;)
 
 Licensing
 ============
