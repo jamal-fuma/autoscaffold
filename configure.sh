@@ -98,7 +98,10 @@ then
 	exit `false`;
 fi
 
-[ ! -d ${output_dir} ] || mkdir ${output_dir}
+if [ ! -d ${output_dir} ];
+then
+	mkdir ${output_dir};
+fi
 
 # copy makefiles
 (cd ${ABS_PATH}/mk; tar cf - . ) | ( cd ${output_dir}; tar xf - );
