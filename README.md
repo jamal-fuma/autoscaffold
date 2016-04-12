@@ -14,15 +14,15 @@ By default this is setup to generate support for a C++11 project with Boost and 
 The configure.sh script contains a list of the files which constitute the generated project.
 n example test is provided to show how to use the provided support for unit test fixtures.
 
-Files in the generated project 
+Files in the generated project
 ============
 
-../output/
+```../output/
 ├── Makefile.am 	 - the top level makefile - the SUBDIRS line must be updated when extra directories are added to the directory
 ├── autogen.sh  	 - regenerates all generated files from a pristine checkout
 ├── configure.ac 	 - the top level project configuration, once a project is generated - the project name and support email should be changed here
 
-├── build-aux   	 - contains makefile snippets which for manual inclusion into makefiles to share variables / path locations 
+├── build-aux   	 - contains makefile snippets which for manual inclusion into makefiles to share variables / path locations
 │   ├── astyle.mk 	 - when included into a makefile, adds a astyle target which will format source code consistently
 │   ├── changelog.mk 	 - when included into a makefile, populates a Changlog file with the git commit history.
 │   ├── gcov.mk      	 - when included into a makefile, adds support for generate test coverage reports
@@ -45,7 +45,7 @@ Files in the generated project
 ├── sources
 │   ├── Makefile.am	  - lists the subdirectories to build for a source tree
 │   ├── include		  - contains public headers which should be available to tests and sources
-│   │   └── Makefile.am   - lists any headers need for the build  
+│   │   └── Makefile.am   - lists any headers need for the build
 │   ├── lib 		  - contains any libraries the application wishes to build
 │   │   └── Makefile.am	  - lists the subdirectories to build for libraries in a source tree
 │   └── src
@@ -63,14 +63,18 @@ Files in the generated project
     └── src
     │   └── Makefile.am	  - lists the subdirectories to build tests for executables in a source tree
     │   └── test_build.cpp - a test which exercises a executable in the source tree
-
+```
 How do I use it?
 ============
+```
 1) clone the repo  		 > git checkout github.com/jamal-fuma/autoscaffold ./autoscaffold
-2) generate an output directory  > cd ./autoscaffold; ./configure.sh
-3) see the tests pass 		 > cd output; ./autogen.sh; ./configure; make; make distcheck;
+2) make a new project directory  > mkdir my_new_project
+3) generate the build system 	 > ./autoscaffold/configure.sh my_new_project
+4) run the smoke tests 	 	 > cd my_new_project
+5) Do the autotools three step   > ./autogen.sh; ./configure; make; make distcheck;
+```
 
-Now make sure to copy the output directory somewhere as running ./configure.sh again will overwrite the output directory.
+Now Started adding code and happy hacking ;)
 
 Licensing
 ============
