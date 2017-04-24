@@ -70,6 +70,50 @@ then
                 --enable-gcov;
 fi
 
+if [ "${1}" = "clang" ];
+then
+        CXXFLAGS="-std=c++14" CXX="clang++" CC="clang" \
+        ${PROJECT_ROOT}/configure \
+                --enable-maintainer-mode \
+                --with-ccache=no \
+                --enable-debug \
+                --enable-silent-rules \
+                --with-webtoolkit-include-dir=/usr/local/include \
+                --with-webtoolkit-library-dir=/usr/local/lib
+fi
+
+if [ "${1}" = "clang-analyse" ];
+then
+        CXXFLAGS="-std=c++14" CXX="clang++" CC="clang" scan-build \
+            -analyze-headers \
+            -k \
+            -v \
+            -enable-checker cplusplus \
+            -enable-checker deadcode \
+            -enable-checker security \
+            -enable-checker unix \
+        ${PROJECT_ROOT}/configure \
+                --enable-maintainer-mode \
+                --with-ccache=no \
+                --enable-debug \
+                --enable-silent-rules \
+                --with-webtoolkit-include-dir=/usr/local/include \
+                --with-webtoolkit-library-dir=/usr/local/lib
+fi
+
+if [ "${1}" = "gcc-asan" ];
+then
+        CXXFLAGS="-std=c++14 -fsanitize=address -Wfatal-errors -Werror" CXX="g++" CC="gcc" LDFLAGS="-fsanitize=address -static-libasan -lasan"
+        ${PROJECT_ROOT}/configure \
+                --enable-maintainer-mode \
+                --with-ccache=no \
+                --enable-debug \
+                --enable-silent-rules \
+                --with-webtoolkit-include-dir=/usr/local/include \
+                --with-webtoolkit-library-dir=/usr/local/lib
+fi
+
+
 if [ "${1}" = "centos" ];
 then
         ${PROJECT_ROOT}/configure \
