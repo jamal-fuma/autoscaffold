@@ -1,0 +1,2 @@
+FUMA_HTTPD_V1_CONFIG_DIR="@confdir@"
+FUMA_HTTPD_V1_DATA_DIR="@confdir@"
