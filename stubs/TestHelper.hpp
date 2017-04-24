@@ -15,6 +15,7 @@
 #include <fstream>
 
 #include <vector>
+#include <stdlib.h>
 namespace Fuma
 {
     namespace Test
