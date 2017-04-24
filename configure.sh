@@ -74,6 +74,7 @@ ${ABS_PATH}/scripts/centos.sh
 ${ABS_PATH}/scripts/configure.sh
 ${ABS_PATH}/scripts/ctags.sh
 ${ABS_PATH}/scripts/reallyclean.sh
+${ABS_PATH}/scripts/valgrind.sh
 EOF
 )
 
