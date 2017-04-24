@@ -42,7 +42,7 @@ if [ "${1}" = "osx" ];
 then
         CTAGS=/usr/local/bin/ctags \
         CTAGSFLAGS="-R --tag-relative=yes --exclude=.git --exclude=build" \
-        ASTYLE_TOOL=/usr/local/Cellar/astyle/2.04/bin/astyle \
+        ASTYLE_TOOL=/usr/local/Cellar/astyle/2.05/bin/astyle \
         ${PROJECT_ROOT}/configure \
             --enable-maintainer-mode \
             --with-ccache=yes \
