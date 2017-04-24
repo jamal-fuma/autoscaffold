@@ -2,8 +2,8 @@ if HAVE_GCOV
 .PHONY: clean-gcda
 clean-gcda:
 	@echo Removing old coverage results
-	-find $(abs_top_builddir) -name '*.gcda' -print | xargs -r rm
-	-find $(abs_top_builddir) -name '*.gcno' -print | xargs -r rm
+	-find $(abs_top_builddir) -name '*.gcda' -print | xargs rm -f
+	-find $(abs_top_builddir) -name '*.gcno' -print | xargs rm -f
 
 .PHONY: coverage-html generate-coverage-html clean-coverage-html coverage_base.info coverage_delta.info coverage.info
 coverage-html:
