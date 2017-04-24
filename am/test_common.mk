@@ -1,3 +1,5 @@
+include $(top_srcdir)/build-aux/data_common.mk
+
 INCLUDE_DIRS	= -I$(top_builddir) \
 				  -I$(top_srcdir)/sources/include \
 				  -I$(top_srcdir)/tests/include
