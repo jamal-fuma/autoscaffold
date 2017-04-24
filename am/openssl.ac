@@ -1,2 +1,2 @@
 # find the platform openssl library
-AX_CHECK_OPENSSL([])
+AX_CHECK_OPENSSL
