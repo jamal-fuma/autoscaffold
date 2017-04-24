@@ -25,13 +25,14 @@ coverage_base.info:
 		--ignore-errors graph \
 		--compat-libtool
 
-
 	@echo Stripping external coverage data from baseline
 	$(LCOV) \
 		--remove $(abs_top_builddir)/coverage_base.info \
 		"/usr*" \
 		"/opt*" \
-	-o $(abs_top_builddir)/coverage_base.info
+		"$(abs_top_srcdir)/sources/include/3rd_party*" \
+		"/Applications*" \
+		--output-file $(abs_top_builddir)/coverage_base.info
 
 coverage_delta.info:
 	@echo Collecting delta coverage data
