@@ -54,8 +54,10 @@ then
         ${PROJECT_ROOT}/configure \
                 --enable-maintainer-mode \
                 --enable-debug \
+                --with-ccache=yes \
                 --enable-silent-rules \
-                --with-ccache=yes;
+		--with-webtoolkit-include-dir=/usr/local/include \
+                --with-webtoolkit-library-dir=/usr/local/lib
 fi
 
 if [ "${1}" = "profile" ];
