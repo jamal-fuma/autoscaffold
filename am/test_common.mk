@@ -48,6 +48,7 @@ COMPILE_FLAGS	= $(INCLUDE_DIRS) \
 				  $(PTHREAD_CFLAGS) \
 				  $(POSTGRES_CPPFLAGS) \
 				  $(WEBTOOLKIT_CPPFLAGS) \
+                 $(OPENSSL_INCLUDES) \
 				  $(SOURCE_DEFINES) \
 				  $(TEST_DEFINES) \
 				  $(WARNING_FLAGS)
