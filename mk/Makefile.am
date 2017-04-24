@@ -6,6 +6,7 @@ ACLOCAL_AMFLAGS = -I m4
 BUILT_SOURCES = ChangeLog
 
 SUBDIRS = \
+ assets \
  sources \
  tests \
  .
