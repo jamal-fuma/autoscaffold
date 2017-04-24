@@ -1,7 +1,8 @@
 include $(top_srcdir)/build-aux/data_common.mk
 
 INCLUDE_DIRS	= -I$(top_builddir) \
-				  -I$(top_srcdir)/sources/include
+				  -I$(top_srcdir)/sources/include \
+				  -I$(top_srcdir)/sources/include/3rd_party
 
 SOURCE_DEFINES  = -DPACKAGE_VERSION="\"${PACKAGE_VERSION}\"" \
 				  -D__STDC_LIMIT_MACROS=1 \
