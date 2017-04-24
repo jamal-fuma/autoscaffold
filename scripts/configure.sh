@@ -62,8 +62,9 @@ fi
 
 if [ "${1}" = "profile" ];
 then
-        ${PROJECT_ROOT}/configure \
+        CC=${CC:-"gcc"} CXX=${CXX:-"g++"} ${PROJECT_ROOT}/configure \
                 --enable-maintainer-mode \
+                --with-ccache=no \
                 --enable-debug \
                 --enable-silent-rules \
                 --enable-gcov;
