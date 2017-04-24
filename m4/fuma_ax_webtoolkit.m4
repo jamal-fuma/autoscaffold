@@ -41,7 +41,7 @@ AC_DEFUN_ONCE([FUMA_AX_WEBTOOLKIT],[dnl
 # FUMA_AX_WEBTOOLKIT start
 #---------------------------------------------------------------
     #set defaults for our shell variables
-        fuma_ax_webtoolkit_default_version="3.2.3"
+        fuma_ax_webtoolkit_default_version="3.3.7"
     fuma_ax_webtoolkit_default_library_ext="${fuma_ax_default_library_ext}"
     fuma_ax_webtoolkit_user_version="$1"
     fuma_ax_webtoolkit_found="no"
