@@ -1,6 +1,10 @@
 #ifndef FUMA_TEST_HELPER_HPP
 #define FUMA_TEST_HELPER_HPP
 
+#if defined(HAVE_CONFIG_H)
+    #include "config.h"
+#endif
+
 #include <boost/test/unit_test.hpp>
 #include <boost/test/mock_object.hpp>
 #include <assert.h>
