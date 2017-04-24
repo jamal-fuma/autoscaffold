@@ -137,11 +137,11 @@ AC_DEFUN([AC_TDD_GCOV_SET_COVERAGE_FLAGS],[dnl
 #---------------------------------------------------------------
 
  # Add the special gcc flags
- ac_tdd_gcov_compile_flags="--coverage -fno-default-inline -fno-inline  -fno-elide-constructors -fno-inline-small-functions"
-
+ # "-fno-default-inline -fno-inline  -fno-elide-constructors -fno-inline-small-functions"
+ ac_tdd_gcov_compile_flags="-fprofile-arcs -ftest-coverage -fno-inline -fno-elide-constructors"
  COVERAGE_CFLAGS="${ac_tdd_gcov_compile_flags}"
  COVERAGE_CXXFLAGS="${ac_tdd_gcov_compile_flags}"
- COVERAGE_LDFLAGS="--coverage -lgcov"
+ COVERAGE_LDFLAGS="--coverage"
 
  AC_SUBST(COVERAGE_CFLAGS)
  AC_SUBST(COVERAGE_CXXFLAGS)
