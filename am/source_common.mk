@@ -1,4 +1,4 @@
-# hang the package configuration directories of the $(sysconfdir) environment
+include $(top_srcdir)/build-aux/data_common.mk
 
 INCLUDE_DIRS	= -I$(top_builddir) \
 				  -I$(top_srcdir)/sources/include
