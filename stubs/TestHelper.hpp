@@ -41,10 +41,10 @@ namespace Fuma
 		{
 			// glue paths together
 			boost::filesystem::path full_path(FIXTURES_DIR);
-			full_path /= fname.c_str(); 
+			full_path /= fname.c_str();
 
 			// get a suitable string
-			std::string abs_fname = 
+			std::string abs_fname =
 				boost::filesystem::canonical(full_path).string();
 
 			uintmax_t size = boost::filesystem::file_size(full_path);
