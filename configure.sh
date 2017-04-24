@@ -69,6 +69,12 @@ ${ABS_PATH}/stubs/SUPPORT_EMAIL
 EOF
 )
 
+asset_files=$(cat <<EOF
+${ABS_PATH}/stubs/example.conf.in
+${ABS_PATH}/stubs/valgrind.supp
+EOF
+)
+
 script_files=$(cat <<EOF
 ${ABS_PATH}/scripts/centos.sh
 ${ABS_PATH}/scripts/configure.sh
@@ -142,6 +148,13 @@ mkdir -p ${output_dir}/scripts;
 for f in $script_files; do
 	cp $f ${output_dir}/scripts/`basename $f`;
 done
+
+# copy over supporting assets
+mkdir -p ${output_dir}/assets;
+for f in ${asset_files}; do
+	cp $f ${output_dir}/assets/`basename $f`;
+done
+
 
 printf "%s\n" "autoreconf -fvi" > ${output_dir}/autogen.sh
 chmod +x ${output_dir}/autogen.sh
