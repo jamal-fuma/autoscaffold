@@ -42,6 +42,7 @@ coverage_delta.info:
 		-b $(abs_top_builddir) \
 		--directory $(abs_top_builddir) \
 		--output-file $(abs_top_builddir)/coverage_delta.info \
+		--ignore-errors graph \
 		--compat-libtool
 
 	@echo Stripping external coverage data from delta
