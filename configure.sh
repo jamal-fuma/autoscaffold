@@ -94,6 +94,7 @@ ${ABS_PATH}/am/pthread.ac
 ${ABS_PATH}/am/boost.ac
 ${ABS_PATH}/am/postgres.ac
 ${ABS_PATH}/am/webtoolkit.ac
+${ABS_PATH}/am/openssl.ac
 ${ABS_PATH}/am/output.ac
 EOF
 )
