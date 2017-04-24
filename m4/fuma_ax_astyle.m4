@@ -89,14 +89,14 @@ AC_DEFUN([FUMA_AX_ASTYLE],[dnl
     dnl try and find the binary
     FUMA_AX_SET_AX_ASTYLE_VERSION([$1],[astyle_desired])
     AC_MSG_CHECKING(["for astyle version >= ${fuma_ax_astyle_desired_version_number}"])
-    AC_CHECK_PROG([ASTYLE_TOOL], [astyle], [astyle])
+    AC_PATH_PROG([ASTYLE_TOOL], [astyle], [])
 
     dnl work out the version number
     AS_IF([test "x${ASTYLE_TOOL}" = "x"],
         [AC_MSG_RESULT(["astyle was not found in the search path"])],
         [AC_MSG_RESULT(["astyle found in path as ${ASTYLE_TOOL}"])])
 
-    AS_IF([test "x${ASTYLE_TOOL}" = "x"],[],[
+    AS_IF([test "x${ASTYLE_TOOL}" = "x"],[FUMA_AX_SET_AX_ASTYLE_VERSION([0.0.0.0], [astyle_actual])],[
         astyle_version_number=`${ASTYLE_TOOL} --version 2>&1 | ${AWK} '{ print $NF; }'`
         FUMA_AX_SET_AX_ASTYLE_VERSION([$astyle_version_number], [astyle_actual])])
 
