@@ -22,6 +22,7 @@ coverage_base.info:
 		-b $(abs_top_builddir) \
 		--directory $(abs_top_builddir) \
 		--output-file $(abs_top_builddir)/coverage_base.info \
+		--ignore-errors graph \
 		--compat-libtool
 
 
