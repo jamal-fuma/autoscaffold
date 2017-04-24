@@ -49,7 +49,7 @@ AC_DEFUN([AC_TDD_GCOV_CHECK_PROGRAMS],[dnl
  AC_CHECK_PROG(LCOV, lcov, lcov)
  AS_IF([test "$LCOV"],
      [lcov_version=`$LCOV -v 2>/dev/null | $SED -e 's/^.* //'`;
-     m4_foreach([lcov_check_version], [[1.6],[1.7], [1.8],[1.9],[1.10]],
+     m4_foreach([lcov_check_version], [[1.6],[1.7], [1.8],[1.9],[1.10],[1.11],[1.12]],
          [AS_IF([test "$lcov_version" = "lcov_check_version"],
              [glib_cv_lcov_version="lcov_check_version (ok)"])
          ])
