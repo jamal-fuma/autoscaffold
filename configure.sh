@@ -22,7 +22,8 @@ ${ABS_PATH}/m4/ax_boost_program_options.m4
 ${ABS_PATH}/m4/ax_boost_regex.m4
 ${ABS_PATH}/m4/ax_boost_system.m4
 ${ABS_PATH}/m4/ax_boost_unit_test_framework.m4
-${ABS_PATH}/m4/ax_cxx_compile_stdcxx_11.m4
+${ABS_PATH}/m4/ax_cxx_compile_stdcxx.m4
+${ABS_PATH}/m4/ax_cxx_compile_stdcxx_14.m4
 ${ABS_PATH}/m4/ax_pthread.m4
 ${ABS_PATH}/m4/fuma_ax_cannonical_host.m4
 ${ABS_PATH}/m4/fuma_ax_cppflags_if_enabled.m4
