@@ -25,6 +25,7 @@ namespace Fuma
             public:
                 // setup
                 Fixture()
+                    : m_data{}
                 {
                     // setup per test fixture data
                 }
