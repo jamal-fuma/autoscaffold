@@ -6,7 +6,6 @@
 #endif
 
 #include <boost/test/unit_test.hpp>
-#include <boost/test/mock_object.hpp>
 #include <assert.h>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
