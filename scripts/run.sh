@@ -15,7 +15,8 @@ abspath()
 }
 
 SCRIPT=$(abspath ${0})
-ROOTPATH=`dirname ${SCRIPT}`
+SCRIPTPATH=`dirname ${SCRIPT}`
+ROOTPATH=`dirname ${SCRIPTPATH}`
 export PROJECT_ROOT=${ROOTPATH}
 
 die()
