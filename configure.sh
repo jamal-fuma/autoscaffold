@@ -82,7 +82,7 @@ ${ABS_PATH}/am/additional-build-machinary.ac
 ${ABS_PATH}/am/automake.ac
 ${ABS_PATH}/am/silent-rules.ac
 ${ABS_PATH}/am/disable-detection-of-compilers-unused-by-me.ac
-${ABS_PATH}/am/cpp11.ac
+${ABS_PATH}/am/cpp14.ac
 ${ABS_PATH}/am/programs.ac
 ${ABS_PATH}/am/astyle.ac
 ${ABS_PATH}/am/ccache.ac
