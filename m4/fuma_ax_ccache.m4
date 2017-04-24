@@ -50,7 +50,7 @@ AC_DEFUN([FUMA_AX_CCACHE],[dnl
                     CLANG_ARGS='-Qunused-arguments';
                     CC="${CCACHE_TOOL} ${CC} ${CLANG_ARGS}";
                     CXX="${CCACHE_TOOL} ${CXX} ${CLANG_ARGS}";
-                    CXCPP="${CCACHE_TOOL} $${CXXCPP} ${CLANG_ARGS}";
+                    CXXCPP="${CCACHE_TOOL} $${CXXCPP} ${CLANG_ARGS}";
                     ],
                     [
 #---------------------------------------------------------------
