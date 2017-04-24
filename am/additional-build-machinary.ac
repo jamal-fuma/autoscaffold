@@ -1,6 +1,13 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.68])
-AC_INIT([vendor-project-name], [0.0.1], [bugfixes@support-email.com])
+
+m4_define([project_version_str], m4_esyscmd_s([cat build-aux/VERSION]))
+m4_define([project_name_str], m4_esyscmd_s([cat build-aux/PROJECT]))
+m4_define([project_email_str], m4_esyscmd_s([cat build-aux/SUPPORT_EMAIL]))
+
+AC_INIT(m4_translit(project_name_str,[ ], [_]),
+        m4_translit(project_version_str, [:], [.]),
+        [project_email_str])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
