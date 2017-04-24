@@ -50,7 +50,9 @@ coverage_delta.info:
 		--remove $(abs_top_builddir)/coverage_delta.info \
 		"/usr*" \
 		"/opt*" \
-		-o $(abs_top_builddir)/coverage_delta.info
+		"$(abs_top_srcdir)/sources/include/3rd_party*" \
+		"/Applications*" \
+		--output-file $(abs_top_builddir)/coverage_delta.info
 
 coverage.info:
 		@echo Combining baseline and delta coverage data
