@@ -12,7 +12,8 @@ LINKER_FLAGS	= \
 		  $(POSTGRES_LDFLAGS) \
 		  $(WEBTOOLKIT_LDFLAGS) \
 		  $(BOOST_LDFLAGS) \
-		  $(PTHREAD_LIBS) \
+		  $(OPENSSL_LDFLAGS) \
+		  $(PTHREAD_CFLAGS) \
 		  $(COVERAGE_LDFLAGS) \
 		  -rdynamic
 
