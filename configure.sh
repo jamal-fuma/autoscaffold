@@ -62,6 +62,9 @@ ${ABS_PATH}/am/data_common.mk
 ${ABS_PATH}/am/source_common.mk
 ${ABS_PATH}/am/test_common.mk
 ${ABS_PATH}/am/gcov.mk
+${ABS_PATH}/stubs/PROJECT
+${ABS_PATH}/stubs/VERSION
+${ABS_PATH}/stubs/SUPPORT_EMAIL
 EOF
 )
 
