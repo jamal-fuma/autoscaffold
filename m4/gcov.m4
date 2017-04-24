@@ -57,7 +57,7 @@ AC_DEFUN([AC_TDD_GCOV_CHECK_PROGRAMS],[dnl
 
  dnl is the version suitable
  AS_IF([test "${glib_cv_lcov_version}" = "invalid"],
- [AC_MSG_ERROR([To enable code coverage reporting you need a lcov version in the range (1.6 .. 1.10)])],
+ [AC_MSG_ERROR([To enable code coverage reporting you need a lcov version in the range (1.6 .. 1.12)])],
  [AC_TDD_GCOV_SET_PROGRAMS])
 #---------------------------------------------------------------
 # AC_TDD_GCOV_CHECK_PROGRAMS end
