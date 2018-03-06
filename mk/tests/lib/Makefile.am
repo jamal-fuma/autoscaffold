@@ -8,7 +8,7 @@ check_PROGRAMS = \
     test_build
 
 # pull in common test flags
-include $(top_srcdir)/build-aux/test_common.mk
+include $(top_srcdir)/build-mk/test_common.mk
 
 # name our test suite adding any test specific flags
 AM_CPPFLAGS = $(COMPILE_FLAGS) -DBOOST_TEST_MODULE="LIB"

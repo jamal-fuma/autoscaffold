@@ -1,5 +1,5 @@
 # assets/Makefile.am
-include $(top_srcdir)/build-aux/data_common.mk
+include $(top_srcdir)/build-mk/data_common.mk
 
 # configuration for the services
 config_v1dir = $(pkg_data_dir)

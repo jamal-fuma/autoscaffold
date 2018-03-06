@@ -1,6 +1,6 @@
 # sources/lib/Makefile.am
 
-include $(top_srcdir)/build-aux/source_common.mk
+include $(top_srcdir)/build-mk/source_common.mk
 
 SUBDIRS = \
  .
