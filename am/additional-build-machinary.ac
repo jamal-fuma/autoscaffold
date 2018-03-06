@@ -1,9 +1,9 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.68])
 
-m4_define([project_version_str], m4_esyscmd_s([cat build-aux/VERSION]))
-m4_define([project_name_str], m4_esyscmd_s([cat build-aux/PROJECT]))
-m4_define([project_email_str], m4_esyscmd_s([cat build-aux/SUPPORT_EMAIL]))
+m4_define([project_version_str], m4_esyscmd_s([cat project/VERSION]))
+m4_define([project_name_str], m4_esyscmd_s([cat project/NAME]))
+m4_define([project_email_str], m4_esyscmd_s([cat project/SUPPORT_EMAIL]))
 
 AC_INIT(m4_translit(project_name_str,[ ], [_]),
         m4_translit(project_version_str, [:], [.]),
