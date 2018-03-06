@@ -165,7 +165,7 @@ mkdir -p ${output_dir}/m4;
 cat >> ${output_dir}/.gitmodules<<-EOF
 [submodule "m4"]
 	path = m4
-    url = https://github.com/jamal-fuma/fuma_m4.git
+	url = https://github.com/jamal-fuma/fuma_m4.git
 EOF
 
 # copy over supporting scripts
