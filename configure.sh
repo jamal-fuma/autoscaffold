@@ -118,6 +118,31 @@ then
 	mkdir ${output_dir};
 fi
 
+# make output directories
+for d in ${output_dir}/assets \
+    ${output_dir}/sources/src ${output_dir}/sources/include ${output_dir}/sources/lib \
+         ${output_dir}/tests/src     ${output_dir}/tests/include   ${output_dir}/tests/lib ${output_dir}/tests/fixtures \
+         ${output_dir}/project ${output_dir}/build-mk \
+         ${output_dir}/scripts ${output_dir}/build-aux ${output_dir}/m4; do
+    mkdir -p ${d} || echo "unable to mkdir $d";
+done
+
+# populate basic information
+basename `pwd` > ${output_dir}/project/NAME
+basename `pwd` > ${output_dir}/README.md
+git config user.email > ${output_dir}/project/SUPPORT_EMAIL
+echo 0.0.1 > ${output_dir}/project/VERSION
+
+# git
+cat > ${output_dir}/.gitignore<<-EOF
+**/Makefile.in
+aclocal.m4
+autom4te.cache/
+build/
+config.h.in
+configure
+EOF
+
 # copy makefiles
 (cd ${ABS_PATH}/mk; tar cf - . ) | ( cd ${output_dir}; tar xf - );
 
