@@ -24,6 +24,10 @@ CLEANFILES=$(top_builddir)/example.conf
 # not explicitly removing things we generate causes distclean to fail and so breaks distcheck
 DISTCLEANFILES=$(CLEANFILES)
 
+uninstall-hook:
+	if test -d $(DISTDIR)$(config_v1dir); then $$(cd $(DISTDIR)$(config_v1dir) && rm -f $(DISTDIR)$(nobase_dist_config_v1_DATA) && rmdir $(DISTDIR)$(config_v1dir);); fi
+	if test -d $(DISTDIR)$(pkg_sysconf_root_dir); then $$(cd $(DISTDIR)$(pkg_sysconf_root_dir) && rm -rf $(DISTDIR)$(pkg_sysconf_root_dir) && rmdir $(DISTDIR)$(pkg_sysconf_root_dir);); fi
+
 MAINTAINERCLEANFILES = \
              $(top_srcdir)/assets/Makefile.in \
 			 $(DISTCLEANFILES)
