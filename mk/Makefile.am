@@ -15,6 +15,7 @@ EXTRA_DIST = \
  m4 \
  build-aux \
  scripts \
+ build-mk \
  autogen.sh \
  ChangeLog \
  VERSION
