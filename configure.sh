@@ -157,22 +157,31 @@ cp ${ABS_PATH}/stubs/fixture.txt ${output_dir}/tests/fixtures/
 cat $ConfigureFragments > ${output_dir}/configure.ac
 
 # copy over supporting build fragments
-mkdir -p ${output_dir}/build-aux;
+mkdir -p ${output_dir}/build-mk;
 for f in $build_aux_files; do
-	cp $f ${output_dir}/build-aux/`basename $f`;
+	cp $f ${output_dir}/build-mk/`basename $f`;
 done
+cat > ${output_dir}/.gitmodules<<-EOF
+[submodule "build-aux"]
+	path = build-aux
+	url = https://github.com/jamal-fuma/fuma_build_aux.git
+EOF
 
 # copy over supporting m4 fragments
 mkdir -p ${output_dir}/m4;
-for f in $m4_files; do
-	cp $f ${output_dir}/m4/`basename $f`;
-done
+cat > ${output_dir}/.gitmodules<<-EOF
+[submodule "m4"]
+	path = m4
+    url = https://github.com/jamal-fuma/fuma_m4.git
+EOF
 
 # copy over supporting scripts
 mkdir -p ${output_dir}/scripts;
-for f in $script_files; do
-	cp $f ${output_dir}/scripts/`basename $f`;
-done
+cat >> ${output_dir}/.gitmodules<<-EOF
+[submodule "scripts"]
+	path = scripts
+	url = https://github.com/jamal-fuma/fuma_build_scripts.git
+EOF
 
 # copy over supporting assets
 mkdir -p ${output_dir}/assets;
