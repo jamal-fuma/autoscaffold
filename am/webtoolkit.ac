@@ -1,4 +1,4 @@
 # find the version of webtoolkit libraries
-FUMA_AX_WEBTOOLKIT([3.3.4],[],[
+FUMA_AX_WEBTOOLKIT([4.0.2],[],[
         AC_ERROR([Could not find suitable version of libWt])
 ])
