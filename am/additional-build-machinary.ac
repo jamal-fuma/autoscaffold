@@ -12,6 +12,9 @@ AC_INIT(m4_translit(project_name_str,[ ], [_]),
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 
+# here be magic
+: ${CXXFLAGS="-O3 -g -march=native -fno-omit-frame-pointer"}
+
 # location of additional build machinary
 AC_CONFIG_HEADERS([config.h])
 AC_SUBST([ACLOCAL_AMFLAGS], ["-I $ac_macro_dir \${ACLOCAL_FLAGS} --install"])
