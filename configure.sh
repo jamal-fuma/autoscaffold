@@ -55,7 +55,7 @@ ${ABS_PATH}/m4/ax_lib_mysql.m4
 EOF
 )
 
-build_aux_files=$(cat <<EOF
+build_mk_files=$(cat <<EOF
 ${ABS_PATH}/am/data_common.mk
 ${ABS_PATH}/am/source_common.mk
 ${ABS_PATH}/am/test_common.mk
@@ -151,14 +151,9 @@ cat $ConfigureFragments > ${output_dir}/configure.ac
 
 # copy over supporting build fragments
 mkdir -p ${output_dir}/build-mk;
-for f in $build_aux_files; do
+for f in $build_mk_files; do
 	cp $f ${output_dir}/build-mk/`basename $f`;
 done
-cat > ${output_dir}/.gitmodules<<-EOF
-[submodule "build-aux"]
-	path = build-aux
-	url = https://github.com/jamal-fuma/fuma_build_aux.git
-EOF
 
 # copy over supporting m4 fragments
 mkdir -p ${output_dir}/m4;
