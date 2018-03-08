@@ -112,6 +112,12 @@ then
 	mkdir ${output_dir};
 fi
 
+if [ ! -d ${output_dir}/.git ];
+then
+    ( cd ${output_dir} && git init . ; );
+fi
+
+
 # make output directories
 for d in ${output_dir}/assets \
     ${output_dir}/sources/src ${output_dir}/sources/include ${output_dir}/sources/lib \
@@ -127,6 +133,9 @@ basename `pwd` > ${output_dir}/README.md
 git config user.email > ${output_dir}/project/SUPPORT_EMAIL
 echo 0.0.1 > ${output_dir}/project/VERSION
 
+( cd ${output_dir} && git add project README.md; );
+( cd ${output_dir} && git commit -m "Patch: add basic project metadata" ; );
+
 # git
 cat > ${output_dir}/.gitignore<<-EOF
 **/Makefile.in
@@ -137,18 +146,32 @@ config.h.in
 configure
 EOF
 
+( cd ${output_dir} && git add .gitignore; )
+( cd ${output_dir} && git commit -m "Patch: start ignoring generated files" ; );
+
 # copy makefiles
 (cd ${ABS_PATH}/mk; tar cf - . ) | ( cd ${output_dir}; tar xf - );
+# add generated makefiles to git
+( cd ${output_dir} && find . -name 'Makefile.am' | xargs git add  )
+( cd ${output_dir} && git commit -m "Patch: add generated makefiles" ; );
+
 
 # copy test helper
-mkdir ${output_dir}/tests/fixtures
 cp ${ABS_PATH}/stubs/TestHelper.hpp ${output_dir}/tests/include/TestHelper.hpp
 cp ${ABS_PATH}/stubs/test_build.cpp ${output_dir}/tests/src/
 cp ${ABS_PATH}/stubs/test_build.cpp ${output_dir}/tests/lib
 cp ${ABS_PATH}/stubs/fixture.txt ${output_dir}/tests/fixtures/
 
+
+# add generated tests to git
+( cd ${output_dir} && find tests -type f | xargs git add  )
+( cd ${output_dir} && git commit -m "Patch: add generated test suite" ; );
+
+
 # assemble configure.ac
 cat $ConfigureFragments > ${output_dir}/configure.ac
+( cd ${output_dir} &&  git add configure.ac  )
+( cd ${output_dir} && git commit -m "Patch: add generated configure.ac to git" ; );
 
 # copy over supporting build fragments
 mkdir -p ${output_dir}/build-mk;
@@ -156,28 +179,32 @@ for f in $build_mk_files; do
 	cp $f ${output_dir}/build-mk/`basename $f`;
 done
 
-# copy over supporting m4 fragments
-mkdir -p ${output_dir}/m4;
-cat >> ${output_dir}/.gitmodules<<-EOF
-[submodule "m4"]
-	path = m4
-	url = https://github.com/jamal-fuma/fuma_m4.git
-EOF
+# add generated build-mk to git
+( cd ${output_dir} && find build-mk -type f | xargs git add  )
+( cd ${output_dir} && git commit -m "Patch: add generated build-mk" ; );
 
-# copy over supporting scripts
-mkdir -p ${output_dir}/scripts;
-cat >> ${output_dir}/.gitmodules<<-EOF
-[submodule "scripts"]
-	path = scripts
-	url = https://github.com/jamal-fuma/fuma_build_scripts.git
-EOF
+
+git submodule add "https://github.com/jamal-fuma/fuma_build_aux.git" "build-aux"
+git commit -m "Patch: add build-aux as submodule"
+
+git submodule add "https://github.com/jamal-fuma/fuma_m4.git" "m4"
+git commit -m "Patch: add m4 as submodule"
+
+git submodule add "https://github.com/jamal-fuma/fuma_build_scripts.git" "scripts"
+git commit -m "Patch: add scripts as submodule"
 
 # copy over supporting assets
 mkdir -p ${output_dir}/assets;
 for f in ${asset_files}; do
 	cp $f ${output_dir}/assets/`basename $f`;
 done
+( cd ${output_dir} && find assets -type f | xargs git add  )
+( cd ${output_dir} && git commit -m "Patch: add generated assets" ; );
 
-
-printf "%s\n" "autoreconf -fvi" > ${output_dir}/autogen.sh
+# push bootstrap
+printf "%s\n" "git submodule update --init --recursive" > ${output_dir}/autogen.sh
+printf "%s\n" "autoreconf -fvi" >> ${output_dir}/autogen.sh
 chmod +x ${output_dir}/autogen.sh
+
+( cd ${output_dir} &&  git add autogen.sh  )
+( cd ${output_dir} && git commit -m "Patch: add generated autogen.sh to git" ; );
