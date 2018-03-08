@@ -116,8 +116,8 @@ fi
 for d in ${output_dir}/assets \
     ${output_dir}/sources/src ${output_dir}/sources/include ${output_dir}/sources/lib \
          ${output_dir}/tests/src     ${output_dir}/tests/include   ${output_dir}/tests/lib ${output_dir}/tests/fixtures \
-         ${output_dir}/project ${output_dir}/build-mk \
-         ${output_dir}/scripts ${output_dir}/build-aux ${output_dir}/m4; do
+         ${output_dir}/project ${output_dir}/build-mk ;
+do
     mkdir -p ${d} || echo "unable to mkdir $d";
 done
 
