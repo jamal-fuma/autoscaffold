@@ -12,22 +12,38 @@ AC_DEFUN([FUMA_AX_CHECK_WEBTOOLKIT_DBO_MYSQL_LIBRARY],[dnl
 #---------------------------------------------------------------
 # FUMA_AX_CHECK_WEBTOOLKIT_DBO_MYSQL_LIBRARY start
 #---------------------------------------------------------------
+fuma_ax_webtoolkit_dbo_mysql_library_found="no";
+AC_MSG_CHECKING([
+for libwtdbo_mysql
+fuma_ax_webtoolkit_dbo_mysql_library_found="${fuma_ax_webtoolkit_dbo_mysql_library_found}"
+])
 FUMA_AX_CHECK_LIBRARY([wtdbomysql],
-                [-L${$2} -Wl,-rpath,${$2} ${BOOST_LDFLAGS}],
-                [-lwtdbomysql -lwtdbo ${BOOST_SYSTEM_LIB} ${PTHREAD_LIBS}],
-                [${WEBTOOLKIT_CPPFLAGS} ${BOOST_CPPFLAGS}],
+                [${WEBTOOLKIT_LDFLAGS}],
+                [-lwtdbomysql -lwtdbo ${WEBTOOLKIT_LIBS}],
+                [${WEBTOOLKIT_CPPFLAGS}],
                 [WEBTOOLKIT],
                 [WEBTOOLKIT_DBO_MYSQL],
                 [[
-@%:@include <Wt/Dbo/Session>
-@%:@include <Wt/Dbo/backend/MySQL>
+@%:@include <Wt/Dbo/Session.h>
+@%:@include <Wt/Dbo/backend/MySQL.h>
 ]],
                 [[
 Wt::Dbo::Session session;
 Wt::Dbo::backend::MySQL m_connection("somedb","someusername","somepass");
 ]],
-                [$1])
-##---------------------------------------------------------------
+                [fuma_ax_webtoolkit_dbo_mysql_library_found])
+AS_IF([test "x${fuma_ax_webtoolkit_dbo_mysql_backend_found}" = "xyes"],[dnl
+	AC_SUBST([WEBTOOLKIT_DBO_MYSQL_LIBS])
+        AC_DEFINE([HAVE_WEBTOOLKIT_DBO_MYSQL],[1],[define if the Webtoolkit dbo_mysql library is available])
+])
+AC_MSG_RESULT([
+fuma_ax_webtoolkit_dbo_mysql_library_found="${fuma_ax_webtoolkit_dbo_mysql_library_found}"
+WEBTOOLKIT_CPPFLAGS="${WEBTOOLKIT_CPPFLAGS}"
+WEBTOOLKIT_LDFLAGS="${WEBTOOLKIT_LDFLAGS}"
+WEBTOOLKIT_LIBS="${WEBTOOLKIT_LIBS}"
+WEBTOOLKIT_DBO_MYSQL_LIBS="${WEBTOOLKIT_DBO_MYSQL_LIBS}"
+])
+#---------------------------------------------------------------
 # FUMA_AX_CHECK_WEBTOOLKIT_DBO_MYSQL_LIBRARY end
 #---------------------------------------------------------------
         ])
