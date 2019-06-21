@@ -12,15 +12,35 @@ AC_DEFUN([FUMA_AX_CHECK_WEBTOOLKIT_TEST_LIBRARY],[dnl
 #---------------------------------------------------------------
 # FUMA_AX_CHECK_WEBTOOLKIT_TEST_LIBRARY start
 #---------------------------------------------------------------
+fuma_ax_webtoolkit_test_library_found="no";
+AC_MSG_CHECKING([
+for libwttest
+fuma_ax_webtoolkit_test_library_found="${fuma_ax_webtoolkit_test_library_found}"
+])
 FUMA_AX_CHECK_LIBRARY([wttest],
-                [-L${$2} -Wl,-rpath,${$2} ${BOOST_LDFLAGS}],
-                [-lwttest -lwt ${BOOST_SYSTEM_LIB} ${PTHREAD_LIBS}],
-                [${WEBTOOLKIT_CPPFLAGS} ${BOOST_CPPFLAGS}],
+                [${WEBTOOLKIT_LDFLAGS}],
+                [-lwttest -lwt ${WEBTOOLKIT_LIBS}],
+                [${WEBTOOLKIT_CPPFLAGS}],
                 [WEBTOOLKIT],
                 [WEBTOOLKIT_TEST],
-                [[@%:@include <Wt/Test/WTestEnvironment>]],
-                [[Wt::Test::WTestEnvironment environment]],
-                [$1])
+                [[
+@%:@include <Wt/Test/WTestEnvironment.h>
+]],
+                [[
+Wt::Test::WTestEnvironment environment;
+]],
+                [fuma_ax_webtoolkit_test_library_found])
+AS_IF([test "x${fuma_ax_webtoolkit_test_library_found}" = "xyes"],[dnl
+		AC_SUBST([WEBTOOLKIT_TEST_LIBS])
+        AC_DEFINE([HAVE_WEBTOOLKIT_TEST],[1],[define if the Webtoolkit test library is available])
+])
+AC_MSG_RESULT([
+fuma_ax_webtoolkit_test_library_found="${fuma_ax_webtoolkit_test_library_found}"
+WEBTOOLKIT_CPPFLAGS="${WEBTOOLKIT_CPPFLAGS}"
+WEBTOOLKIT_LDFLAGS="${WEBTOOLKIT_LDFLAGS}"
+WEBTOOLKIT_LIBS="${WEBTOOLKIT_LIBS}"
+WEBTOOLKIT_TEST_LIBS="${WEBTOOLKIT_TEST_LIBS}"
+])
 #---------------------------------------------------------------
 # FUMA_AX_CHECK_WEBTOOLKIT_TEST_LIBRARY end
 #---------------------------------------------------------------
