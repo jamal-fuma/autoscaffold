@@ -32,111 +32,77 @@ AC_DEFUN_ONCE([FUMA_AX_POSTGRES],[dnl
 #---------------------------------------------------------------
 # FUMA_AX_POSTGRES start
 #---------------------------------------------------------------
-	#set defaults for our shell variables
-	fuma_ax_postgres_default_version="9.4.0"
-	fuma_ax_postgres_default_library_ext="${fuma_ax_default_library_ext}"
-	fuma_ax_postgres_user_version="$1"
-	fuma_ax_postgres_found="no"
-	fuma_ax_postgres_required="yes"
-	fuma_ax_with_postgres_library_dir="yes"
-	fuma_ax_with_postgres_include_dir="yes"
+     # set defaults for our shell variables
+    fuma_ax_postgres_default_version="9.4.0"
+    fuma_ax_postgres_user_version="$1"
+    fuma_ax_postgres_required="no"
 
-	# compare supplied version against the empty string,
-	# if the caller supplied a version we use that otherwise we use fuma_ax_postgres_default_version
-	FUMA_AX_SET_POSTGRES_VERSION([ifelse([${fuma_ax_postgres_user_version}],[],
-			["${fuma_ax_postgres_default_version}"],
-			["${fuma_ax_postgres_user_version}"])], [desired_postgres])
+# Check whether --with-postgres was given.
+    AC_ARG_WITH([postgres],
+        [AS_HELP_STRING([--with-postgres=@<:@ARG@:>@],[
+            use PostgreSQL from a standard location (ARG=yes),
+            from the specified location (ARG=<path>),
+            or disable it (ARG=no)
+            @<:@ARG=yes@:>@]
+            )], [fuma_ax_with_postgres="${withval}"],
+        [fuma_ax_with_postgres="${fuma_ax_postgres_required}"])
 
-	# Check whether --with-postgres was given.
-	AC_ARG_WITH([postgres], [dnl
-			AS_HELP_STRING([--with-postgres=@<:@ARG@:>@],[use PostgreSQL from a standard location (ARG=yes),
-				from the specified location (ARG=<path>), or disable it (ARG=no) @<:@ARG=yes@:>@ ])],
-			[fuma_ax_with_postgres=${withval}],
-			[fuma_ax_with_postgres="${fuma_ax_postgres_required}"])
+# Check whether --with-postgres-include-dir was given.
+    AC_ARG_WITH([postgres-include-dir],
+            [AS_HELP_STRING([--with-postgres-include-dir=@<:@ARG@:>@],[
+                override include path for PostgreSQL (ARG=<path>),
+                or disable it (ARG=no)
+                @<:@ARG=yes@:>@]
+                )], [fuma_ax_with_postgres_include_dir=${withval}],
+            [fuma_ax_with_postgres_include_dir="/usr/include"])
 
-	# export path of PostgreSQL top level directory
-	FUMA_AX_SET_POSTGRES_PATH([fuma_ax_with_postgres],[postgres])
+# Check whether --with-postgres-library-dir was given.
+    AC_ARG_WITH([postgres-library-dir],
+            [AS_HELP_STRING([--with-postgres-library-dir=@<:@ARG@:>@], [
+                override library path for PostgreSQL (ARG=<path>),
+                or disable it (ARG=no)
+                @<:@ARG=yes@:>@]
+                )], [fuma_ax_with_postgres_library_dir=${withval}],
+            [fuma_ax_with_postgres_library_dir="/usr/lib/x86_64-linux-gnu"])
 
-	# allow overriding paths for location of PostgreSQL
-	AS_IF([test -d "${fuma_ax_postgres_path}"], [dnl
-		fuma_ax_postgres_include_dir_path="${fuma_ax_postgres_path}/include"
-		fuma_ax_postgres_library_dir_path="${fuma_ax_postgres_path}/lib"])
+    # allow user to skip finding PostgreSQL
+    AS_IF([test "x$fuma_ax_with_postgres" = "xno"], [fuma_ax_postgres_required="no"],[
+    #--------------------------------------------------------------------------------------
+        AC_MSG_CHECKING([setting library and include paths for postgres ])
+    #--------------------------------------------------------------------------------------
+        include_dir="${fuma_ax_with_postgres_include_dir}"
+        library_dir="${fuma_ax_with_postgres_library_dir}"
 
-	# Check whether --with-postgres-include-dir was given.
-	AC_ARG_WITH([postgres-include-dir], [dnl
-			AS_HELP_STRING([--with-postgres-include-dir=@<:@ARG@:>@],[override include path for PostgreSQL (ARG=path)])],
-			[fuma_ax_with_postgres_include_dir=${withval}],
-			[fuma_ax_with_postgres_include_dir="${fuma_ax_postgres_required}"])
+        fuma_ax_postgres_library_found="no";
+        POSTGRES_CPPFLAGS="-I${include_dir}";
+        POSTGRES_LIBS="";
+        POSTGRES_LDFLAGS="-L${library_dir} -Wl,-rpath,${library_dir}";
+    #--------------------------------------------------------------------------------------
 
-	# export include path for PostgreSQL
-	FUMA_AX_SET_POSTGRES_PATH([fuma_ax_with_postgres_include_dir],[postgres_include_dir])
+        FUMA_AX_CHECK_POSTGRES_LIBRARY([fuma_ax_postgres_library_found])
+    #--------------------------------------------------------------------------------------
 
-	# allow overriding include paths for location of PostgreSQL
-	AS_IF([test -d "${fuma_ax_postgres_include_dir_path}"], [dnl
-			include_dir="${fuma_ax_postgres_include_dir_path}"])
-
-	# Check whether --with-postgres-library-dir was given.
-	AC_ARG_WITH([postgres-library-dir], [dnl
-			AS_HELP_STRING([--with-postgres-library-dir=@<:@ARG@:>@],[override library path for PostgreSQL (ARG=path)])],
-			[fuma_ax_with_postgres_library_dir=${withval}],
-			[fuma_ax_with_postgres_library_dir="${fuma_ax_postgres_required}"])
-
-	# export library path for PostgreSQL
-	FUMA_AX_SET_POSTGRES_PATH([fuma_ax_with_postgres_library_dir],[postgres_library_dir])
-
-	# allow overriding library paths for location of PostgreSQL
-	AS_IF([test -d "${fuma_ax_postgres_library_dir_path}"], [dnl
-			library_dir="${fuma_ax_postgres_library_dir_path}"])
-
-# try paths until we find a match
-	dnl setup the search paths
-	fuma_ax_postgres_search_paths="
-	/usr/local/Cellar/postgresql/${fuma_ax_desired_postgres_version_str}
-	/opt/postgres/${fuma_ax_desired_postgres_version_str}
-	/home/user/software/postgres/${fuma_ax_desired_postgres_version_str}
-	";
-
-	for search_path in $fuma_ax_postgres_path $fuma_ax_postgres_search_paths;
-	do
-		FUMA_AX_SET_POSTGRES_DIRECTORY_UNLESS_SET([include],[${search_path}/include])
-
-		# use a search path unless the user specified an explict path
-		FUMA_AX_SET_POSTGRES_DIRECTORY_UNLESS_SET([library],[${search_path}/lib])
-
-		# check if the header is present
-		fuma_ax_postgres_version_header_found="no"
-
-		AS_IF([test -f "${include_dir}/libpq-fe.h"],[dnl
-			fuma_ax_postgres_version_header_found="yes"
-
-			FUMA_AX_COMPARE_POSTGRES_HEADER_VERSION([fuma_ax_desired_postgres_version_str],
-				[fuma_ax_postgres_version_header_found],
-				[include_dir])
-
-			fuma_ax_postgres_found="no"
-			fuma_ax_postgres_pq_library_found="no"
-			FUMA_AX_CHECK_POSTGRES_PQ_LIBRARY([fuma_ax_postgres_pq_library_found],[library_dir])
-		])
-
-		AS_IF([test "x${fuma_ax_postgres_pq_library_found}" = "xyes"],[dnl
-			AC_DEFINE([HAVE_POSTGRES],[1],[define if the PostgreSQL library is available])
-			fuma_ax_postgres_found="yes"
-			break])
-	done
-
-	AC_MSG_RESULT([${fuma_ax_postgres_found}])
+        AC_MSG_RESULT([
+include_dir="${fuma_ax_with_postgres_include_dir}"
+library_dir="${fuma_ax_with_postgres_library_dir}"
+POSTGRES_LDFLAGS="${POSTGRES_LDFLAGS}";
+POSTGRES_CPPFLAGS="${POSTGRES_CPPFLAGS}";
+POSTGRES_LIBS="${POSTGRES_LIBS}"
+fuma_ax_postgres_library_found="${fuma_ax_postgres_library_found}";])
 
 # perform user supplied action if user indeed supplied it.
-	AS_IF([test "x$fuma_ax_postgres_found" = "xyes"],
-		[# action on success
-		ifelse([$2], , :, [$2])
-		],
-		[ # action on failure
-		ifelse([$3], , :, [$3])
-		])
+    AS_IF([test "x$fuma_ax_postgres_library_found" = "xyes"],
+        [# action on success
+        ifelse([$2], , :, [$2])
+        ],
+        [ # action on failure
+        ifelse([$3], , :, [$3])
+        ])
+	])
+    #--------------------------------------------------------------------------------------
+    #
+    #--------------------------------------------------------------------------------------
 
-	AS_IF([test "x$fuma_ax_postgres_found" = "xyes"], [],[dnl
-			AC_ERROR([Could not find PostgreSQL library to use]) ])
 #---------------------------------------------------------------
 # FUMA_AX_POSTGRES end
 #---------------------------------------------------------------
