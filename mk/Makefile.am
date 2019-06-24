@@ -18,6 +18,7 @@ EXTRA_DIST = \
  build-mk \
  autogen.sh \
  ChangeLog \
+ project \
  VERSION
 
 MAINTAINERCLEANFILES = \
