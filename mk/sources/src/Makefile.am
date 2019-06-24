@@ -1,5 +1,7 @@
 # sources/src/Makefile.am
 
+include $(top_srcdir)/build-mk/source_common.mk
+
 SUBDIRS = \
  .
 
@@ -8,8 +10,6 @@ bin_PROGRAMS = \
 
 # implicitly set for( % : $(bin_PROGRAMS) ) %_SOURCES = %.cpp
 AM_DEFAULT_SOURCE_EXT = .cpp
-
-include $(top_srcdir)/build-aux/source_common.mk
 
 AM_LDFLAGS  = $(LINKER_FLAGS)
 AM_CPPFLAGS = $(COMPILE_FLAGS)
