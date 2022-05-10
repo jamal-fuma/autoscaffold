@@ -5,7 +5,7 @@ include $(top_srcdir)/build-mk/source_common.mk
 SUBDIRS = \
  .
 
-bin_PROGRAMS = \
+bin_PROGRAMS =
 
 
 # implicitly set for( % : $(bin_PROGRAMS) ) %_SOURCES = %.cpp
